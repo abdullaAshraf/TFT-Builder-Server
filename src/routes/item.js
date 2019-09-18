@@ -1,14 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const ChampionModel = require('../models/champion.model')
+const ItemModel = require('../models/item.model')
 
-//Create a new Champion
-router.post('/champion', (req, res) => {
+//Create a new item
+router.post('/item', (req, res) => {
     if (!req.body) {
         return res.status(400).send('Request body is missiing')
     }
 
-    let model = new ChampionModel(req.body)
+    let model = new ItemModel(req.body)
     model.save()
         .then(doc => {
             if (!doc || doc.length === 0) {
@@ -22,9 +22,9 @@ router.post('/champion', (req, res) => {
         })
 })
 
-//Get all champions
-router.get('/champion', (req, res) => {
-    ChampionModel.find()
+//Get all items
+router.get('/item', (req, res) => {
+    ItemModel.find()
         .then(doc => {
             res.json(doc)
         }).catch(err => {
@@ -32,9 +32,9 @@ router.get('/champion', (req, res) => {
         })
 })
 
-//Get champion by name
-router.get('/champion/:name', (req, res) => {
-    ChampionModel.findOne({
+//Get item by name
+router.get('/item/:name', (req, res) => {
+    ItemModel.findOne({
         name: req.params.name
     }).then(doc => {
         res.json(doc)
@@ -43,9 +43,9 @@ router.get('/champion/:name', (req, res) => {
     })
 })
 
-//Update champion
-router.put('/champion/:name', (req, res) => {
-    ChampionModel.findOneAndUpdate({
+//Update item
+router.put('/item/:name', (req, res) => {
+    ItemModel.findOneAndUpdate({
         name: req.params.name
     }, req.body, { new: true })
         .then(doc => {
@@ -55,9 +55,9 @@ router.put('/champion/:name', (req, res) => {
         })
 })
 
-//Delete champion
-router.delete('/champion/:name', (req, res) => {
-    ChampionModel.findOneAndRemove({
+//Delete item
+router.delete('/item/:name', (req, res) => {
+    ItemModel.findOneAndRemove({
         name: req.params.name
     }).then(doc => {
         res.json(doc)

@@ -1,14 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const ChampionModel = require('../models/champion.model')
+const SynergyModel = require('../models/synergy.model')
 
-//Create a new Champion
-router.post('/champion', (req, res) => {
+//Create a new Synergy
+router.post('/synergy', (req, res) => {
     if (!req.body) {
         return res.status(400).send('Request body is missiing')
     }
 
-    let model = new ChampionModel(req.body)
+    let model = new SynergyModel(req.body)
     model.save()
         .then(doc => {
             if (!doc || doc.length === 0) {
@@ -22,9 +22,9 @@ router.post('/champion', (req, res) => {
         })
 })
 
-//Get all champions
-router.get('/champion', (req, res) => {
-    ChampionModel.find()
+//Get all synergies
+router.get('/synergy', (req, res) => {
+    SynergyModel.find()
         .then(doc => {
             res.json(doc)
         }).catch(err => {
@@ -32,9 +32,9 @@ router.get('/champion', (req, res) => {
         })
 })
 
-//Get champion by name
-router.get('/champion/:name', (req, res) => {
-    ChampionModel.findOne({
+//Get synergy by name
+router.get('/synergy/:name', (req, res) => {
+    SynergyModel.findOne({
         name: req.params.name
     }).then(doc => {
         res.json(doc)
@@ -43,9 +43,9 @@ router.get('/champion/:name', (req, res) => {
     })
 })
 
-//Update champion
-router.put('/champion/:name', (req, res) => {
-    ChampionModel.findOneAndUpdate({
+//Update synergy
+router.put('/synergy/:name', (req, res) => {
+    SynergyModel.findOneAndUpdate({
         name: req.params.name
     }, req.body, { new: true })
         .then(doc => {
@@ -55,9 +55,9 @@ router.put('/champion/:name', (req, res) => {
         })
 })
 
-//Delete champion
-router.delete('/champion/:name', (req, res) => {
-    ChampionModel.findOneAndRemove({
+//Delete synergy
+router.delete('/synergy/:name', (req, res) => {
+    SynergyModel.findOneAndRemove({
         name: req.params.name
     }).then(doc => {
         res.json(doc)
