@@ -2,13 +2,18 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3001
 
-let championRoute = require('./routes/champion')
-let itemRoute = require('./routes/item')
-let synergyRoute = require('./routes/synergy')
+const championRoute = require('./routes/champion')
+const itemRoute = require('./routes/item')
+const synergyRoute = require('./routes/synergy')
+const buildRoute = require('./routes/build')
 
-let bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const helmet = require('helmet');
 
+//app.use(helmet());
 app.use(bodyParser.json())
+app.use(cors())
 
 app.use((req,res,next) => {
     console.log(`${new Date().toString()} => ${req.originalUrl}`, req.body)
@@ -17,6 +22,7 @@ app.use((req,res,next) => {
 app.use(championRoute)
 app.use(itemRoute)
 app.use(synergyRoute)
+app.use(buildRoute)
 app.use(express.static('public'))
 
 app.use((req,res,next) => {
